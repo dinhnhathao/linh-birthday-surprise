@@ -307,7 +307,9 @@ function App(){const [screen,setScreen]=useState('welcome');const [popup,setPopu
   setError('');const frame=document.querySelector('.phone-frame');const inputs=[...document.querySelectorAll('.birthday .date-fields select, .birthday .date-fields input')];
   if(frame&&inputs.length===3){const parent=frame.getBoundingClientRect();setOrigin({fields:inputs.map(el=>{const r=el.getBoundingClientRect();return {x:r.left-parent.left,y:r.top-parent.top,width:r.width,height:r.height}})});}
   unlockAudio();stopSounds();audioCursor.current=0;
-  const music=musicRef.current;if(music){music.pause();music.currentTime=0;music.volume=MUSIC_VOLUME;music.muted=muted;music.play().catch(()=>{})}
+  const music=musicRef.current;if(music){music.pause();music.currentTime=0;music.volume=MUSIC_VOLUME;music.muted=muted;music.play()
+  .then(() => console.log("Nhạc nền đã phát thành công"))
+  .catch(err => console.error("LỖI NHẠC NỀN:", err));}
   setRunId(x=>x+1);setScreen('movie');
  };
  const restart=()=>{stopSounds();if(musicRef.current){musicRef.current.pause();musicRef.current.currentTime=0}audioCursor.current=0;setScreen('welcome');setDay('');setMonth('');setYear('');setPopup(false);setError('')};
